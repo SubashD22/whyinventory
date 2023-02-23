@@ -10,7 +10,7 @@ mongoose.connect(`mongodb+srv://subashD:sub0222@mern.vjalb.mongodb.net/whyinvent
 .then(()=>console.log('connected to db')).catch(err=> console.log(err))
 
 app.use('/api',require('./routes/userRoute')) 
-
+app.use('/api',require('./routes/productRoute'))
 app.listen(Port,()=>{
     console.log(`connected to Port ${Port}`)
 })
