@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router();
-router.get('/user',async(req,res)=>{
-  res.status(200).send('user')
-})
+const {registerUser, loginUser} = require('../controllers/userControllers')
+router.post('/user/register',registerUser)
+router.post('/user/login',loginUser)
 module.exports = router

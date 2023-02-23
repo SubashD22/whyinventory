@@ -20,7 +20,7 @@ const registerUser = async(req,res)=>{
         password: hashedPassword
     });
     if(newUser){
-        return res.send(200).json({
+        return res.status(200).json({
             id : newUser._id,
             name: newUser.name,
             email: newUser.email,
@@ -29,6 +29,33 @@ const registerUser = async(req,res)=>{
     }
 
 }
+const loginUser = async(req,res)=>{
+    const {email,password} = req.body;
+    if(!email || !password){
+        return res.status(400).send('mssing required details')
+    }
+    try {
+        const user = await User.findOne({email});
+        if(user && (await bcrypt.compare(password,user.password))){
+            return res.status(200).json({
+                id : user._id,
+                name: user.name,
+                email: user.email,
+                token: generateToken(user._id)
+            })
+        }else{
+            return res.status(400).send('invalid credentials')
+        }
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({message: error.message})
+    }
+}
 const generateToken = (id)=>{
     return jwt.sign({id},process.env.JWT_SECRET,{expiresIn:'1d'})
+}
+
+module.exports = {
+    registerUser,
+    loginUser
 }
