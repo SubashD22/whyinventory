@@ -16,6 +16,10 @@ const productSchema = mongoose.Schema({
         type:String,
         required:String
     },
+    quantity:{
+        type: Number,
+        required: true,
+    },
     price: {
         type:Number,
         required: true
@@ -26,7 +30,8 @@ const productSchema = mongoose.Schema({
         default: false
     },
     discount:{
-        type: Number
+        type: Number,
+        default:0
     }
 },{timestamps:true});
 
