@@ -32,6 +32,9 @@ const productSchema = mongoose.Schema({
     discount:{
         type: Number,
         default:0
+    },
+    reviews:{
+        type: mongoose.Schema.Types.ObjectId
     }
 },{timestamps:true});
 
